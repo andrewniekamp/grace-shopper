@@ -14,6 +14,8 @@ router.get('/:id', (req, res, next) => {
   .catch(next)
 })
 
+//no! noun/number/noun. RESTful
+// /products/:id/related
 router.get('/category/:id', (req, res, next) => {
   Product.findAll({
     where: {

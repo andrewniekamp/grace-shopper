@@ -17,6 +17,7 @@ Category.hasMany(Product);
 
 Order.belongsToMany(Product, { through: 'products_orders' });
 Product.belongsToMany(Order, { through: 'products_orders' });
+//expand this join table to have a fixed_price. 
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,

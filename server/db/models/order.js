@@ -8,6 +8,8 @@ const Order = db.define('order', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   }
+  //is this enough info in the long run?
+  //when did order get placed?
 })
 
 module.exports = Order;

@@ -11,7 +11,7 @@ const Product = db.define('product', {
   price: {
     type: Sequelize.FLOAT,
     allowNull: false
-  },
+  }, //consider making price an integer.
   description: {
     type: Sequelize.STRING,
     allowNull: false
@@ -24,6 +24,8 @@ const Product = db.define('product', {
     type: Sequelize.INTEGER,
     allowNull: false
   }
+  //what else do we want to think about for quantity???
+  //can't have negative quantity. some default value here.
 })
 
 module.exports = Product;
