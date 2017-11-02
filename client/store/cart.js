@@ -22,63 +22,40 @@ Action Creator
 export function addToCart(productId){
   return {
     type: ADD_ITEM,
-    payload: {
-      productId
-    }
+    payload: productId
   }
 }
 
 export function removeFromCart(productId){
   return {
     type: REMOVE_ITEM,
-    payload: {
-      productId
-    }
+    payload: productId
   }
 }
 
-/*
-Thunk Creators
-*/
+
 const handleCartAdd = function(state, payload) {
   return {
-    ...state,
     orderList: [...state.orderList, payload.productId]
   };
 };
 
 const handleCartRemove = function(state, payload) {
   return {
-    ...state,
-    items: state.items.filter(id => id !== payload.productId)
+    orderList: state.items.filter(id => id !== payload.productId)
   };
 };
-
-
-export default function cart(state = initialState, action = {}){
-  switch (action.type){
-    case ADD_ITEM:
-     return handleCartAdd(state, action.payload);
-    case REMOVE_ITEM:
-      return handleCartRemove(state, action.payload)
-    default:
-      return state;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 Reducer
 */
-
-
+export default function cart(state = [], action = {}){
+  switch (action.type){
+    case ADD_ITEM:
+     return [...state, action.payload];
+    case REMOVE_ITEM:
+      return state.filter(thing => thing !== action.payload)
+    default:
+      return state;
+  }
+}
