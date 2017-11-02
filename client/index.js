@@ -9,7 +9,6 @@ import Routes from './routes'
 import './socket'
 const productThunk = products();
 productThunk(store.dispatch)
-  .then(products => console.log('deez nutz', products))
 ReactDOM.render(
   <Provider store={store}>
     <Routes />
