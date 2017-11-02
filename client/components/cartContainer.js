@@ -13,23 +13,35 @@ export const CartContainer = (props) =>{
   return (
     <div>
       <h2>Hi from Jose</h2>
-    {console.log('our cart items: ', bottles)}
-   { 
+  <table>
+    <thead> 
+      <tr> 
+        <th>Item</th> 
+        <th>Price</th> 
+      </tr>
+      </thead>
+    <tbody> 
+    { 
       bottles && bottles.map(bottle => {
-        console.log("1")
+      
+        console.log("our bottle", bottle)
         return (
-        <div key={bottle[0].id}> 
-          <div>
-           {bottle[0].name} 
-          </div>
-        </div>)
+        <tr key={bottle[0].id}>
+          <td>
+           {bottle[0].name}
+          </td> 
+          <td>
+           {bottle[0].price} 
+          </td>
+        </tr>
+        )
       })
     }
-
+      </tbody> 
+    </table>
     </div>
   )
 }
-
 
 
 /* CONTAINER */
