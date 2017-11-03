@@ -21,7 +21,6 @@ export const ProductList = (props) => {
             <div className="caption">
             <h3>{product.name}</h3><p> ... </p>
             <p><button className="btn btn-success" onClick={handleAddToCart} value={product.id}>Add to cart</button></p>
-            <p><button className="btn btn-danger" onClick={handleRemoveFromCart} value={product.id}>Remove from cart</button></p>
           </div>
         </div>
         </div>
@@ -56,3 +55,4 @@ export default connect(mapState, mapDispatch)(ProductList)
 
 /* PROP TYPES */
 
+{/* <p><button className="btn btn-danger" onClick={handleRemoveFromCart} value={product.id}>Remove from cart</button></p> */}

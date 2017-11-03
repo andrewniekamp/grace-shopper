@@ -11,13 +11,15 @@ import store, { logout, products } from "../store";
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
+
+
   const { children, handleClick, isLoggedIn, cart } = props
   let deepLength = 0;
   cart.forEach(itemArr => {
     deepLength += itemArr.length;
   })
   return (<div>
-    <h1>BOILERMAKER</h1>
+    <h1>Booze Brothers</h1>
     <nav>
       {isLoggedIn ? <div>
         {/* The navbar will show these links after you log in */}
