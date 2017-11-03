@@ -1,8 +1,8 @@
 const Faker = require('faker');
-const db = require('./server/db');
-const Product = require('./server/db/models/product')
-const Category = require('./server/db/models/category')
-const User = require('./server/db/models/user')
+const db = require('../server/db');
+const Product = require('../server/db/models/product')
+const Category = require('../server/db/models/category')
+const User = require('../server/db/models/user')
 
 
 db
