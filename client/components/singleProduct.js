@@ -8,19 +8,23 @@ export const singleProduct = (props) => {
   let id = props.match.params.id
   let singleItem = inventory.filter(item => item.id == id)[0]
 
-  return (
-    <div>
-      <h1> Hai from Jose</h1>
-      {console.log(singleItem)}
-      <h3> {singleItem.name}</h3>
-      <img src={singleItem.imageURL} />
-      <p> {singleItem.description}</p>
-      <p> {singleItem.price}</p>
-      <p>
-        <button className="btn btn-success" onClick={handleAddToCart} value={singleItem.id}>Add to cart</button>
-      </p>
-    </div>
-  )
+  return (<div className="container">
+      <div className="row">
+        <h1> {singleItem.name}</h1>
+        <div className="col-md-6">
+          <div className="thumbnail">
+            <img src={singleItem.imageURL} className="img-responsive" />
+          </div>
+        </div>
+        <div className="col-md-6 description">
+          <p> {singleItem.description}</p>
+          <p> {singleItem.price}</p>
+          <button className="btn btn-success" onClick={handleAddToCart} value={singleItem.id}>
+            Add to cart
+          </button>
+        </div>
+      </div>
+    </div>);
 }
 
 const mapState = (state) => {

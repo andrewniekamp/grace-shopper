@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import store, { products } from './store'
 import Routes from './routes'
+import './index.scss'
 
 
 // establishes socket connection
