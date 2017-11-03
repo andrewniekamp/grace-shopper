@@ -11,6 +11,7 @@ export const CartContainer = (props) =>{
   let bottles = cartList.map(id =>
     productList.filter(cartItem => (cartItem.id === Number(id))
     ))
+  let price = 0;
   return (
     <div className="container">
       <h2>Hi from Jose</h2>
@@ -26,6 +27,7 @@ export const CartContainer = (props) =>{
       bottles && bottles.map(bottle => {
 
         console.log("our bottle", bottle)
+        price += bottle[0].price;
         return (
         <tr key={bottle[0].id}>
           <td>
@@ -42,6 +44,7 @@ export const CartContainer = (props) =>{
         )
       })
     }
+      <div>Total:$ {price} </div>
       </tbody>
     </table>
     </div>
