@@ -8,6 +8,7 @@ import {Main, Login, Signup, UserHome} from './components'
 import {me} from './store'
 import productsContainer from './components/productsContainer'
 import cartContainer from './components/cartContainer'
+import singleProduct from './components/singleProduct'
 /**
  * COMPONENT
  */
@@ -26,8 +27,9 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/products" component={productsContainer} />
+            <Route exact path="/products" component={productsContainer} />
             <Route path="/cart" component={cartContainer} />
+            <Route path="/products/:id" component={singleProduct} />
 
             {
               isLoggedIn &&

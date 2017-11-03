@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {addToCart, removeFromCart} from '../store'
+import {NavLink} from 'react-router-dom'
 
 
 /*COMPONENT*/
@@ -15,7 +16,8 @@ export const ProductList = (props) => {
       return (
         <div key={product.id} className="col-md-2">
 
-            <div className="thumbnail"><img src={product.imageURL} className="img-thumbnail img-responsive"/>
+            <div className="thumbnail">
+            <NavLink to={`products/${product.id}`}><img value={product.id} src={product.imageURL} className="img-thumbnail img-responsive"/> </NavLink>
             <div className="caption">
             <h3>{product.name}</h3><p> ... </p>
             <p><button className="btn btn-success" onClick={handleAddToCart} value={product.id}>Add to cart</button></p>
