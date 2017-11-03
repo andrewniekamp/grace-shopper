@@ -7,37 +7,37 @@ export const CartContainer = (props) =>{
   const {cartList, productList} = props
   console.log('!!!!! productList is: ', productList)
   console.log('cartList', cartList)
-  let bottles = cartList.map(id =>  
+  let bottles = cartList.map(id =>
     productList.filter(cartItem => (cartItem.id === Number(id))
     ))
   return (
-    <div>
+    <div className="container">
       <h2>Hi from Jose</h2>
-  <table>
-    <thead> 
-      <tr> 
-        <th>Item</th> 
-        <th>Price</th> 
+  <table className="table table-striped">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Price</th>
       </tr>
       </thead>
-    <tbody> 
-    { 
+    <tbody>
+    {
       bottles && bottles.map(bottle => {
-      
+
         console.log("our bottle", bottle)
         return (
         <tr key={bottle[0].id}>
           <td>
            {bottle[0].name}
-          </td> 
+          </td>
           <td>
-           {bottle[0].price} 
+           {bottle[0].price}
           </td>
         </tr>
         )
       })
     }
-      </tbody> 
+      </tbody>
     </table>
     </div>
   )
