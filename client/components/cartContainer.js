@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
+import {removeFromCart} from '../store'
 
 
 /*COMPONENT*/
 export const CartContainer = (props) =>{
-  const {cartList, productList} = props
+  const {cartList, productList, handleRemoveFromCart} = props
   console.log('!!!!! productList is: ', productList)
   console.log('cartList', cartList)
   let bottles = cartList.map(id =>
@@ -32,7 +33,11 @@ export const CartContainer = (props) =>{
           </td>
           <td>
            {bottle[0].price}
+          </td>  
+          <td>
+          <button className="btn btn-danger" onClick={handleRemoveFromCart} value={bottle[0].id}>Remove from cart</button>        
           </td>
+
         </tr>
         )
       })
@@ -52,7 +57,15 @@ const mapState = (state) =>{
   }
 }
 
-export default connect(mapState)(CartContainer)
+const mapDispatch = function(dispatch){
+  return{
+    handleRemoveFromCart(event){
+      dispatch(removeFromCart(event.target.value))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(CartContainer)
 
 
 /* PROP TYPES */

@@ -11,10 +11,9 @@ import store, { logout, products } from "../store";
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  // console.log('deez nuutz from main', store.getState().products)
   const {children, handleClick, isLoggedIn} = props
   return (<div>
-      <h1>BOILERMAKER</h1>
+      <h1>Booze Brothers</h1>
       <nav>
         {isLoggedIn ? <div>
             {/* The navbar will show these links after you log in */}
