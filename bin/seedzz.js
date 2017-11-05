@@ -6,7 +6,7 @@ const User = require('../server/db/models/user')
 
 
 db
-  .sync( {force:true} )
+  .sync( {} )
   .then( () =>{
     console.log('seeding database with categories!');
     return Category.bulkCreate([

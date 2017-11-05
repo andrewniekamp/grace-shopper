@@ -20,8 +20,7 @@ class Routes extends Component {
   render () {
     const {isLoggedIn} = this.props
 
-    return (
-      <Router history={history}>
+    return <Router history={history}>
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
@@ -31,19 +30,18 @@ class Routes extends Component {
             <Route path="/cart" component={cartContainer} />
             <Route path="/products/:id" component={singleProduct} />
 
-            {
-              isLoggedIn &&
-                <Switch>
-                  {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" component={UserHome} />
-                </Switch>
-            }
+            {isLoggedIn && <Switch>
+                {/* Routes placed here are only available after logging in */}
+                <Route path="/home" component={UserHome} />
+                <Route exact path="/products" component={productsContainer} />
+                <Route path="/products/:id" component={singleProduct} />
+                <Route path="/cart" component={cartContainer} />
+              </Switch>}
             {/* Displays our Login component as a fallback */}
             <Route component={Login} />
           </Switch>
         </Main>
-      </Router>
-    )
+      </Router>;
   }
 }
 
