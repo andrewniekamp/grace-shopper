@@ -14,7 +14,7 @@ export const ProductList = (props) => {
     <h1> Welcome </h1>
     {productList.map(product => {
       return (
-        <div key={product.id} className="col-md-2">
+        <div key={product.id} className="col-md-2 uniform">
 
             <div className="thumbnail">
             <NavLink to={`products/${product.id}`}><img value={product.id} src={product.imageURL} className="img-thumbnail img-responsive"/> </NavLink>

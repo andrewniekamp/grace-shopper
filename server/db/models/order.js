@@ -8,6 +8,10 @@ const Order = db.define('order', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
+  status: {
+    type: Sequelize.STRING,
+    defaultValue: 'Pending'
+  },
   orderDate: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
