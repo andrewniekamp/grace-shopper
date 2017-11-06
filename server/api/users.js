@@ -1,6 +1,6 @@
-const router = require('express').Router()
-const {User, Order, Product} = require('../db/models')
-module.exports = router
+const router = require('express').Router();
+const { User, Order, Product } = require('../db/models');
+module.exports = router;
 
 router.get('/', (req, res, next) => {
   User.findAll({
@@ -10,11 +10,46 @@ router.get('/', (req, res, next) => {
     attributes: ['id', 'email']
   })
     .then(users => res.json(users))
-    .catch(next)
-})
+    .catch(next);
+});
 
-router.get('/:id/checkout', (req,res,next)=> {
+router.get('/:id/cart', (req, res, next) => {
   User.findById(req.params.id)
-  .then(user => Order.findOrCreate( {where: {userId: user.id, isSubmitted: false}, include: [{model: Product}] }))
-  .then(order => res.json(order))
-})
+    .then(user =>
+      Order.findOrCreate({
+        where: { userId: user.id, isSubmitted: false },
+        include: [{ model: Product }]
+      })
+    )
+    .then(order => res.json(order));
+});
+
+router.put('/:id/cart/submit', (req, res, next) => {
+  User.findById(req.params.id)
+    .then(user =>
+      Order.find({
+        where: { userId: user.id, isSubmitted: false },
+        include: [{ model: Product }]
+      })
+    )
+    .then(order => order.update({ isSubmitted: true, status: 'submitted' }))
+    .then(order => res.json(order));
+});
+
+router.put('/:id/cart/add', (req, res, next) => {
+  let currentOrder = null;
+  User.findById(req.params.id)
+    .then(user =>
+      Order.find({
+        where: { userId: user.id, isSubmitted: false },
+        include: [{ model: Product }]
+      })
+    )
+    .then(order => {
+      currentOrder = order;
+      Product.findById(req.body.productId).then(product => {
+        currentOrder.addProduct(product);
+      });
+    })
+    .then(order => res.json(order));
+});
