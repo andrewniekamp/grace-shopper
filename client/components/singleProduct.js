@@ -13,7 +13,7 @@ export const singleProduct = (props) => {
     <h3> {singleItem.name}</h3>
     <img src={singleItem.imageURL}/>
     <p> {singleItem.description}</p>
-    <p> {singleItem.price}</p>
+    <p> {singleItem.price / 100}</p>
     </div>
   )
 }

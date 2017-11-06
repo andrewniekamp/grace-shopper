@@ -6,12 +6,10 @@ import {removeFromCart} from '../store'
 /*COMPONENT*/
 export const CartContainer = (props) =>{
   const {cartList, productList, handleRemoveFromCart} = props
-  console.log('!!!!! productList is: ', productList)
-  console.log('cartList', cartList)
   let bottles = cartList.map(id =>
     productList.filter(cartItem => (cartItem.id === Number(id))
     ))
-  let price = 0;
+  let total = 0;
   return (
     <div className="container">
       <h2>Hi from Jose</h2>
@@ -25,26 +23,23 @@ export const CartContainer = (props) =>{
     <tbody>
     {
       bottles && bottles.map(bottle => {
-
-        console.log("our bottle", bottle)
-        price += bottle[0].price;
+        total += bottle[0].price;
         return (
         <tr key={bottle[0].id}>
           <td>
            {bottle[0].name}
           </td>
           <td>
-           {bottle[0].price}
-          </td>  
-          <td>
-          <button className="btn btn-danger" onClick={handleRemoveFromCart} value={bottle[0].id}>Remove from cart</button>        
+           {bottle[0].price / 100}
           </td>
-
+          <td>
+          <button className="btn btn-danger" onClick={handleRemoveFromCart} value={bottle[0].id}>Remove from cart</button>
+          </td>
         </tr>
         )
       })
     }
-      <div>Total:$ {price} </div>
+      <div>Total:$ {total / 100} </div>
       </tbody>
     </table>
     </div>
@@ -61,7 +56,7 @@ const mapState = (state) =>{
 }
 
 const mapDispatch = function(dispatch){
-  return{
+  return {
     handleRemoveFromCart(event){
       dispatch(removeFromCart(event.target.value))
     }
