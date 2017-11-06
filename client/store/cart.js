@@ -54,7 +54,8 @@ export default function cart(state = [], action = {}){
     case ADD_ITEM:
      return [...state, action.payload];
     case REMOVE_ITEM:
-      return state.filter(item => thing !== action.payload)
+    return [ ...state.slice(0,state.indexOf(action.productId),
+      ...state.slice(state.indexOf(action.productId)+1))]
     default:
       return state;
   }
