@@ -15,7 +15,7 @@ const Main = (props) => {
 
   const { children, handleClick, isLoggedIn, cart } = props
   let deepLength = 0;
-  cart.forEach(itemArr => {
+  cart.length && cart.forEach(itemArr => {
     deepLength += itemArr.length;
   })
   return (<div>
