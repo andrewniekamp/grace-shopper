@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter, NavLink } from 'react-router-dom'
 import store, { logout, products } from "../store";
 
 /**
@@ -21,22 +21,34 @@ const Main = (props) => {
   return (<div>
     <h1>Booze Brothers</h1>
     <nav>
-      {isLoggedIn ? <div>
+      {isLoggedIn ? <div className = "Main-Nav">
         {/* The navbar will show these links after you log in */}
-        <Link to="/home">Home</Link>
-        <a href="#" onClick={handleClick}>
-          Logout
-            </a>
-      </div> : <div>
+            <div >
+            <NavLink className = "Main-Nav-a" to="/home">Home</NavLink>
+            <a className = "Main-Nav-a" href="#" onClick={handleClick}>
+              Logout
+                </a>
+            <NavLink className = "Main-Nav-a" to="/products">Products</NavLink>
+            </div>
+            <div>
+            <NavLink className = "Main-Nav-a" to="/cart"> {deepLength} <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" /></NavLink>
+            </div>
+      </div> : <div className = "Main-Nav">
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/products">Products</Link>
-          <Link to="/cart"> {deepLength} <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" /></Link>
+          <div >
+          <NavLink className = "Main-Nav-a" to="/login">Login</NavLink>
+          <NavLink className = "Main-Nav-a" to="/signup">Sign Up</NavLink>
+          <NavLink className = "Main-Nav-a" to="/products">Products</NavLink>
+          </div>
+          <div>
+          <NavLink className = "Main-Nav-a" to="/cart"> {deepLength} <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" /></NavLink>
+          </div>
         </div>}
     </nav>
     <hr />
     {children}
+    <footer>
+    </footer>
   </div>);
 }
 
@@ -45,7 +57,7 @@ const Main = (props) => {
  */
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.id,
+    isLoggedIn: state.user.id,
     cart: state.cart
   }
 }
