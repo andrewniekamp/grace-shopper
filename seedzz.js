@@ -266,12 +266,15 @@ db
       }
     ])
   })
+  .then( () =>{
+    console.log('Seeding database with users!');
+    return User.bulkCreate([
+    {email: 'cody@email.com', password: '123'},
+    {email: 'murphy@email.com', password: '123'},
+    {email: 'john@snow.com', password: '123'}
+  ])})
   .then(() => {
     console.log('Seeding successful');
     db.close();
     return null;
-  });
-
-
-
-
+  })
