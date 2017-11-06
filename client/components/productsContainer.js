@@ -17,7 +17,7 @@ export const ProductList = (props) => {
         <div key={product.id} className="col-md-2 uniform">
 
             <div className="thumbnail">
-            <NavLink to={`products/${product.id}`}><img value={product.id} src={product.imageURL} className="img-thumbnail img-responsive"/> </NavLink>
+            <NavLink to={`products/${product.id}`}><img value={product.id} src={product.imageURL} className="img-thumbnail img-responsive" width="200" height="auto"/> </NavLink>
             <div className="caption">
             <h3>{product.name}</h3><p> ... </p>
             <p><button className="btn btn-success" onClick={handleAddToCart} value={product.id}>Add to cart</button></p>
