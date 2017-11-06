@@ -8,7 +8,6 @@ const ADD_ITEM = 'ADD_ITEM'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 
 
-
 /*
 Initial State
 */
@@ -34,17 +33,26 @@ export function removeFromCart(productId){
 }
 
 
-const handleCartAdd = function(state, payload) {
-  return {
-    orderList: [...state.orderList, payload.productId]
-  };
-};
+//Thunk
+export const addToCartThunk = (userId, productId) => dispatch =>
+  axios
+    .put(`/api/users/${userId}/cart/add`, { productId })
+    .then(res => {
+      dispatch(addToCart(productId));
+    })
+    .catch(error => dispatch(addToCart({ error })));
 
-const handleCartRemove = function(state, payload) {
-  return {
-    orderList: state.items.filter(id => id !== payload.productId)
-  };
-};
+
+// here goes submit order thunk
+  //   export const addToCartThunk = (userId, productId, orderId) => dispatch =>
+  // axios
+  //   .post(`/api/users/${userId}/cart/add`, { productId, orderId })
+  //   .then(res => {
+  //     dispatch(getUser(res.data));
+  //     history.push("/home");
+  //   })
+  //   .catch(error => dispatch(getUser({ error })));
+
 
 /*
 Reducer

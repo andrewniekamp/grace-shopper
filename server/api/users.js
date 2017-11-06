@@ -37,6 +37,7 @@ router.put('/:id/cart/submit', (req, res, next) => {
 });
 
 router.put('/:id/cart/add', (req, res, next) => {
+  console.log('here we are in routes')
   let currentOrder = null;
   User.findById(req.params.id)
     .then(user =>
