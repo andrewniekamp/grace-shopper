@@ -4,36 +4,31 @@ import axios from "axios";
 
 const GET_REVIEWS = 'GET_REVIEWS';
 
+//initial state
+
+const allReviews = [];
+
 // action creator
 
-export function getReviews(reviews) {
-  return {
-    type: GET_REVIEWS, reviews
-  }
-}
+const getReviews = reviews => ({
+    type: GET_REVIEWS,
+    reviews
+})
 
-//helper
-function fetchAllReviews(dispatch){
-  return axios
-    .get('/api/reviews') //!!! CREATE THE API FOR REVIEWS !!!
-    .then(res => {
-      return dispatch(getReviews(res.data))
-    })
+//Thunk creators
+
+export const reviews = () => dispatch =>
+  axios
+    .get('/api/reviews')
+    .then(res => dispatch(getReviews(res.data)))
     .catch(err => console.log(err))
-}
-
-export function fetchReviews(){
-  return function thunk(dispatch){
-    return fetchAllReviews(dispatch)
-  }
-}
 
 //reducer
-export default function Reviews(reviews = [], action) {
+export default function(state = allReviews, action) {
   switch (action.type) {
     case GET_REVIEWS:
-      return action.reviews
+      return action.reviews;
     default:
-      return reviews;
-    }
+      return state;
+  }
 }
