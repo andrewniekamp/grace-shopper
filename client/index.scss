@@ -1,5 +1,7 @@
 body {
+
   font-family: sans-serif;
+  text-align: center;
 
   a {
     text-decoration: none;
@@ -11,11 +13,41 @@ body {
 
   nav a {
     display: inline-block;
-    margin: 1em;
   }
 
   form div {
     margin: 1em;
     display: inline-block;
   }
+
+  footer {
+    height: 4em;
+    width:  100vw;
+  }
+
+  .Main-Nav {
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none
+  }
+
+  .Main-Nav-a{
+    transition: background-color, 2s, ease-in;
+    transition: color, 1.5s, ease;
+    padding: 1em;
+  }
+  
+  .Main-Nav-a:hover{
+    background-color: #6193ED;
+    color: white;
+  }
+  
+  .uniform {
+    height: 44em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all, 2s, ease-in
+  }
+  
 }
