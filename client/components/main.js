@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, NavLink } from 'react-router-dom'
-import store, { logout, products } from "../store";
+import store, { logout, products, emptyCart } from "../store";
 
 /**
  * COMPONENT
@@ -66,6 +66,7 @@ const mapDispatch = (dispatch) => {
   return {
     handleClick() {
       dispatch(logout())
+      dispatch(emptyCart())
     }
   }
 }
