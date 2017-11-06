@@ -54,7 +54,7 @@ export default function cart(state = [], action = {}){
     case ADD_ITEM:
      return [...state, action.payload];
     case REMOVE_ITEM:
-      return state.filter(thing => thing !== action.payload)
+      return state.filter(item => thing !== action.payload)
     default:
       return state;
   }
