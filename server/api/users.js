@@ -12,3 +12,9 @@ router.get('/', (req, res, next) => {
     .then(users => res.json(users))
     .catch(next)
 })
+
+//try to keep security in mind. 
+// /users/:id/checkout
+
+//when something is optinoal consider query params.
+

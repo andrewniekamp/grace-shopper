@@ -12,10 +12,13 @@ const Order = db.define('order', {
     type: Sequelize.STRING,
     defaultValue: 'Pending'
   },
+  //i don't know if you need both isSubmitted and status. 
+  //Ask yourself also is there a limited number of statuses? 
   orderDate: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
   }
+  //consider linking this to a hook
 })
 
 module.exports = Order;

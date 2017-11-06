@@ -8,6 +8,7 @@ import './index.scss'
 // establishes socket connection
 import './socket'
 const productThunk = products();
+//don't do this here
 productThunk(store.dispatch)
 // .then( () =>{
 //   console.log('!!!!!!', store.getState())

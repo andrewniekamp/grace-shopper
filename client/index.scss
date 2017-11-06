@@ -24,6 +24,8 @@ body {
     height: 4em;
     width:  100vw;
   }
+// cannot have capital class names
+// don't forget you can extend a class in sass with &-
 
   .Main-Nav {
     display: flex;
@@ -37,6 +39,22 @@ body {
     padding: 1em;
   }
   
+  // .Main-Nav {
+  //   display: flex;
+  //   justify-content: space-between;
+  //   text-decoration: none
+
+  //     &-link {
+  //       transition: background-color, 2s, ease-in;
+  //       transition: color, 1.5s, ease;
+  //       padding: 1em;
+
+  //       &:hover {
+  //         background-color: #6193ED;
+  //         color: white;
+  //       }
+  //     }
+  // }
   .Main-Nav-a:hover{
     background-color: #6193ED;
     color: white;
