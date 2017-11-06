@@ -100,7 +100,7 @@ db
         name: 'Catoctin Creek Roundstone Rye',
         price: 4496,
         description: "From one of the few distilleries operating in the south, Catoctin is a solid craft outfit with a focus on producing top-notch organic rye whiskey. The Roundstone is fresh, lively, and energetic with the purity of the high quality grain coming through with spice notes, as well as citrus fruits and toasted breads.",
-        imageURL: "",
+        imageURL: "http://www.astorwines.com/images/items/27417_hr.jpg",
         quantity: 100
       },
       {
@@ -170,7 +170,7 @@ db
         name: 'Redbreast 12 Yr. Irish Whiskey',
         price: 5699,
         description: "Contrary to what the Beowulf-like John Jameson ads would have you believe, there are other Irish whiskies worth drinking. In fact, Redbreast, and other single pot still whiskies like it, are as complex and powerful as their famous neighbor Scotch whiskies. Its nose unleashes rich toffee, dried coconut, caramelized bananas, and cured bacon. The palate that follows is equally impressive. Once the dram is tipped into your mouth, expect brown sugar, molasses, sweet coconut, and candied fruit. Redbreast doesn't have ads with a mythic Irishman dragging casks across a frozen ocean, but one should still find that they make damn good whiskey!",
-        imageURL: "",
+        imageURL: "https://img.thewhiskyexchange.com/900/irish_red1.jpg",
         quantity: 100
       },
       {
