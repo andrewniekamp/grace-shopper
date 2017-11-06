@@ -13,13 +13,3 @@ router.get('/:id', (req, res, next) => {
   .then(product => res.json(product))
   .catch(next)
 })
-
-router.get('/category/:id', (req, res, next) => {
-  Product.findAll({
-    where: {
-      categoryId: req.params.id
-    }
-  })
-  .then(products => res.json(products))
-  .catch(next)
-})
