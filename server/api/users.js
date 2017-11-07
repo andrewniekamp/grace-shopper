@@ -21,7 +21,8 @@ router.get('/:id/cart', (req, res, next) => {
         include: [{ model: Product }]
       })
     )
-    .then(order => res.json(order));
+    .then(order => res.json(order))
+    .catch(next)
 });
 
 router.put('/:id/cart/submit', (req, res, next) => {
@@ -33,11 +34,11 @@ router.put('/:id/cart/submit', (req, res, next) => {
       })
     )
     .then(order => order.update({ isSubmitted: true, status: 'submitted' }))
-    .then(order => res.json(order));
+    .then(order => res.json(order))
+    .catch(next)
 });
 
 router.put('/:id/cart/add', (req, res, next) => {
-  console.log('here we are in routes')
   let currentOrder = null;
   let addedProduct = null;
   User.findById(req.params.id)
@@ -54,5 +55,30 @@ router.put('/:id/cart/add', (req, res, next) => {
         currentOrder.addProduct(product);
       });
     })
-    .then( () => res.json(addedProduct));
+    .then( () => res.json(addedProduct))
+    .catch(next)
+});
+
+router.put('/:id/cart/destroy', (req, res, next) => {
+  let currentOrder;
+  let productToRemove;
+  User.findById(req.params.id)
+  .then(user => {
+    return Order.find({
+      where: { userId: user.id, isSubmitted: false },
+      include: [{ model: Product }]
+    })
+  })
+  .then(order => {
+    currentOrder = order;
+    return Product.findById(req.body.productId)
+    .then( product => {
+      console.log(product)
+      productToRemove = product;
+      console.log(currentOrder.protoype);
+      return currentOrder.removeProduct(productToRemove)
+      .then( () => res.json(productToRemove))
+      .catch(next)
+    })
+  })
 });

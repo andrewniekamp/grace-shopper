@@ -36,7 +36,7 @@ export function getCart(theCart) {
 export function removeFromCart(productId) {
   return {
     type: REMOVE_ITEM,
-    payload: productId
+    productId
   };
 }
 
@@ -45,16 +45,23 @@ export const addToCartThunk = (userId, productId) => dispatch =>
   axios
     .put(`/api/users/${userId}/cart/add`, { productId })
     .then(product => {
-      // console.log(product.data);
       dispatch(addToCart(product.data));
     })
     .catch(error => dispatch(addToCart({ error })));
+
+export const removeFromCartThunk = (userId, productId) => dispatch =>
+axios
+  .put(`/api/users/${userId}/cart/destroy`, { productId })
+  .then(product => {
+    console.log("ID", product.data.id);
+    dispatch(removeFromCart(product.data.id));
+  })
+  .catch(error => dispatch(removeFromCart({ error })));
 
 export const getCartThunk = userId => dispatch =>
   axios
     .get(`/api/users/${userId}/cart/`)
     .then(theCart => {
-      // console.log(theCart.data)
       dispatch(getCart(theCart.data[0]));
     })
     .catch(error => dispatch(getCart({ error })));
@@ -87,8 +94,11 @@ export default function cart(state = initialState, action = {}) {
       tempState.products.push(action.product);
       return tempState;
     case REMOVE_ITEM:
-    return [ ...state.slice(0, state.indexOf(action.productId),
-      ...state.slice(state.indexOf(action.productId) + 1))]
+      tempState = Object.assign({}, state, );
+      tempState.products = tempState.products.filter( product => product.id !== action.productId);
+      return tempState;
+      // return [ ...state.slice(0, state.indexOf(action.productId),
+      //   ...state.slice(state.indexOf(action.productId) + 1))]
     case GET_CART:
       return action.payload;
     case EMPTY_CART:

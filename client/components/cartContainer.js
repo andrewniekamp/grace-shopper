@@ -1,13 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import { removeFromCart } from "../store";
+import { removeFromCartThunk } from "../store";
 
 /*COMPONENT*/
 export const CartContainer = props => {
-  const { cart, productList, handleRemoveFromCart } = props;
-  let bottles = cart.products.map(cartItem =>
-    productList.filter(product => product.id === Number(cartItem.id))
-  );
+  const { cart, productList, handleRemoveFromCart, userId } = props;
+  let bottles;
+  if (cart && cart.products) {
+    bottles = cart.products.map(cartItem =>
+      productList.filter(product => product.id === Number(cartItem.id))
+    );
+  }
   let total = 0;
   return (
     <div className="container">
@@ -30,7 +33,7 @@ export const CartContainer = props => {
                   <td>
                     <button
                       className="btn btn-danger"
-                      onClick={handleRemoveFromCart}
+                      onClick={event => handleRemoveFromCart(userId, event)}
                       value={bottle[0].id}
                     >
                       Remove from cart
@@ -57,14 +60,16 @@ export const CartContainer = props => {
 const mapState = state => {
   return {
     cart: state.cart,
-    productList: state.products
+    productList: state.products,
+    userId: state.user.id
   };
 };
 
 const mapDispatch = function(dispatch) {
   return {
-    handleRemoveFromCart(event) {
-      dispatch(removeFromCart(event.target.value));
+    handleRemoveFromCart(userId, event) {
+      let productId = Number(event.target.value);
+      dispatch(removeFromCartThunk(userId, productId));
     }
   };
 };
