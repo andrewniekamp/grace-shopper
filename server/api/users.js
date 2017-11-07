@@ -20,8 +20,7 @@ router.get('/profile', (req, res, next) =>{
     res.redirect('/login')
   }
 })
-    .catch(next);
-});
+
 
 router.get('/:id/cart', (req, res, next) => {
   User.findById(req.params.id)
@@ -66,4 +65,3 @@ router.put('/:id/cart/add', (req, res, next) => {
     })
     .then( () => res.json(addedProduct));
 });
-

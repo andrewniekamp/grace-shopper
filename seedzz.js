@@ -265,46 +265,6 @@ db
       }
     ])
   })
-  .then( () =>{
-    console.log('seeding database with users!');
-    return User.bulkCreate([
-      {
-        email: 'michaelseandouglas@gmail.com',
-        password: 'react-redux is hard',
-        salt: null,
-        googleId: null,
-        isAdmin: true
-      },
-      {
-        email: 'jose@joseIsCool.com',
-        password: 'jose is cool',
-        salt: null,
-        googleId: null,
-        isAdmin: true
-      },
-      {
-        email: 'lukasz@lukaszIsCool.com',
-        password: 'lukasz is cool',
-        salt: null,
-        googleId: null,
-        isAdmin: true
-      },
-      {
-        email: 'andrew@andrewIsCool.com',
-        password: 'andrew is cool',
-        salt: null,
-        googleId: null,
-        isAdmin: true
-      },
-      {
-        email: 'notAdmin@notAdmin.com',
-        password: 'I am not an admin',
-        salt: null,
-        googleId: null,
-        isAdmin: false
-      }
-    ]);
-  })
   .then(() => {
     console.log('Seeding successful');
     db.close();
