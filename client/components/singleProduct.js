@@ -2,11 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 export const singleProduct = (props) => {
-  console.log(props)
   let inventory = props.productList
   let id = props.match.params.id
   let singleItem = inventory.filter(item => item.id == id)
-  console.log("@#@#@!@#!@#!@", singleItem)
   return (
     <div className="container-fluid" >
       {console.log(singleItem)}

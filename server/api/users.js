@@ -73,9 +73,7 @@ router.put('/:id/cart/destroy', (req, res, next) => {
     currentOrder = order;
     return Product.findById(req.body.productId)
     .then( product => {
-      console.log(product)
       productToRemove = product;
-      console.log(currentOrder.protoype);
       return currentOrder.removeProduct(productToRemove)
       .then( () => res.json(productToRemove))
       .catch(next)

@@ -12,13 +12,14 @@ import store, { logout, getCartThunk, emptyCart } from '../store';
  */
 const Main = (props) => {
   let deepLength = 0;
+  let foo;
 
   const { children, handleClick, isLoggedIn, cart, userId } = props
-  cart && cart.products ? deepLength = cart.products.length : console.log('no length');
+  cart && cart.products ? deepLength = cart.products.length : foo = 'bar';
   // cart.length && cart.forEach(itemArr => {
     //   deepLength += itemArr.length;
     // })
-  cart && userId && cart.status === 'Initial' ? store.dispatch(getCartThunk(userId)) : console.log('nice try!', cart)
+  cart && userId && cart.status === 'Initial' ? store.dispatch(getCartThunk(userId)) : foo = 'bar';
   return (<div>
     <h1>Booze Brothers</h1>
     <nav>

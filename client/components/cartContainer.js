@@ -49,9 +49,9 @@ export const CartContainer = props => {
                 </tr>
               );
             })}
-          <div>Total:$ {total / 100} </div>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      <div>Total:$ {total / 100} </div>
     </div>
   );
 };
