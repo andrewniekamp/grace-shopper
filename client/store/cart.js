@@ -87,7 +87,8 @@ export default function cart(state = initialState, action = {}) {
       tempState.products.push(action.product);
       return tempState;
     case REMOVE_ITEM:
-      return state.filter(thing => thing !== action.payload);
+    return [ ...state.slice(0, state.indexOf(action.productId),
+      ...state.slice(state.indexOf(action.productId) + 1))]
     case GET_CART:
       return action.payload;
     case EMPTY_CART:
