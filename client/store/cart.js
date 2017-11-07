@@ -44,7 +44,7 @@ export const addToCartThunk = (userId, productId) => dispatch =>
   axios
     .put(`/api/users/${userId}/cart/add`, { productId })
     .then(product => {
-      console.log(product.data);
+      // console.log(product.data);
       dispatch(addToCart(product.data));
     })
     .catch(error => dispatch(addToCart({ error })));
@@ -53,7 +53,7 @@ export const getCartThunk = userId => dispatch =>
   axios
     .get(`/api/users/${userId}/cart/`)
     .then(theCart => {
-      console.log(theCart.data)
+      // console.log(theCart.data)
       dispatch(getCart(theCart.data[0]));
     })
     .catch(error => dispatch(getCart({ error })));

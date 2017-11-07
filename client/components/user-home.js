@@ -7,8 +7,7 @@ import store, { getCartThunk } from '../store';
  * COMPONENT
  */
 export const UserHome = props => {
-  const { email, userId, cart } = props;
-  cart && cart.status === 'Initial' ? store.dispatch(getCartThunk(userId)) : console.log('nice try!', cart)
+  const { email } = props;
   return (
     <div>
       <h3>Welcome {email}</h3>

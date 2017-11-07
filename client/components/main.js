@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, NavLink } from 'react-router-dom'
-import store, { logout, products } from "../store";
+import store, { logout, products, getCartThunk } from "../store";
 
 /**
  * COMPONENT
@@ -11,13 +11,14 @@ import store, { logout, products } from "../store";
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-
+  let deepLength = 0;
 
   const { children, handleClick, isLoggedIn, cart } = props
-  let deepLength = cart.products.length;
+  cart && cart.products ? deepLength = cart.products.length : console.log('no length');
   // cart.length && cart.forEach(itemArr => {
-  //   deepLength += itemArr.length;
-  // })
+    //   deepLength += itemArr.length;
+    // })
+  cart && isLoggedIn && cart.status === 'Initial' ? store.dispatch(getCartThunk(isLoggedIn)) : console.log('nice try!', cart)
   return (<div>
     <h1>Booze Brothers</h1>
     <nav>
