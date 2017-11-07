@@ -15,6 +15,7 @@ router.get('/:id', (req, res, next) => {
 
 //add product
 router.post('/', (req, res, next) =>{
+  console.log('!! req.body is: ', req.body)
   Product.create(req.body)
   .then(newProduct=>{
     res.json(newProduct)
