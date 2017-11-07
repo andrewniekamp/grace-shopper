@@ -10,6 +10,16 @@ router.get('/', (req, res, next) => {
     attributes: ['id', 'email']
   })
     .then(users => res.json(users))
+    .catch(next)
+})
+
+router.get('/profile', (req, res, next) =>{
+  if(req.user){
+    res.render('profile', {title: 'Profile', user: req.user})
+  } else{
+    res.redirect('/login')
+  }
+})
     .catch(next);
 });
 
@@ -56,3 +66,4 @@ router.put('/:id/cart/add', (req, res, next) => {
     })
     .then( () => res.json(addedProduct));
 });
+

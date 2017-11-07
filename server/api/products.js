@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
-module.exports = router
 
 router.get('/', (req, res, next) => {
   Product.findAll()
@@ -13,3 +12,28 @@ router.get('/:id', (req, res, next) => {
   .then(product => res.json(product))
   .catch(next)
 })
+
+//add product
+router.post('/', (req, res, next) =>{
+  console.log('!! req.body is: ', req.body)
+  Product.create(req.body)
+  .then(newProduct=>{
+    res.json(newProduct)
+  })
+  .catch(next)
+})
+
+//update product
+router.put('/products/:id', (req, res, next)=>{
+	const id = req.params.id;
+	Product.findById(id)
+	.then(foundProduct =>{
+		foundProduct.update(req.body)
+	})
+	.then(updatedProduct =>{
+		res.json(updatedProduct)
+	})
+	.catch(next)
+})
+
+module.exports = router

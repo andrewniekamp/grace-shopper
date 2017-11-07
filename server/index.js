@@ -48,7 +48,9 @@ const createApp = () => {
     resave: false,
     saveUninitialized: false
   }))
+  //initialize passport
   app.use(passport.initialize())
+  //restore session
   app.use(passport.session())
 
   // auth and api routes
