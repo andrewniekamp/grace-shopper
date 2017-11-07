@@ -4,9 +4,9 @@ import { removeFromCart } from "../store";
 
 /*COMPONENT*/
 export const CartContainer = props => {
-  const { cartList, productList, handleRemoveFromCart } = props;
-  let bottles = cartList.map(id =>
-    productList.filter(cartItem => cartItem.id === Number(id))
+  const { cart, productList, handleRemoveFromCart } = props;
+  let bottles = cart.products.map(cartItem =>
+    productList.filter(product => product.id === Number(cartItem.id))
   );
   let total = 0;
   return (
@@ -56,7 +56,7 @@ export const CartContainer = props => {
 /* CONTAINER */
 const mapState = state => {
   return {
-    cartList: state.cart,
+    cart: state.cart,
     productList: state.products
   };
 };

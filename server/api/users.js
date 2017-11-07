@@ -39,6 +39,7 @@ router.put('/:id/cart/submit', (req, res, next) => {
 router.put('/:id/cart/add', (req, res, next) => {
   console.log('here we are in routes')
   let currentOrder = null;
+  let addedProduct = null;
   User.findById(req.params.id)
     .then(user =>
       Order.find({
@@ -48,9 +49,10 @@ router.put('/:id/cart/add', (req, res, next) => {
     )
     .then(order => {
       currentOrder = order;
-      Product.findById(req.body.productId).then(product => {
+      return Product.findById(Number(req.body.productId)).then(product => {
+        addedProduct = product;
         currentOrder.addProduct(product);
       });
     })
-    .then(order => res.json(order));
+    .then( () => res.json(addedProduct));
 });

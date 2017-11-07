@@ -18,10 +18,10 @@ const initialState = {
 /*
 Action Creator
 */
-export function addToCart(productId) {
+export function addToCart(product) {
   return {
     type: ADD_ITEM,
-    payload: productId
+    product
   };
 }
 
@@ -43,8 +43,9 @@ export function removeFromCart(productId) {
 export const addToCartThunk = (userId, productId) => dispatch =>
   axios
     .put(`/api/users/${userId}/cart/add`, { productId })
-    .then(res => {
-      dispatch(addToCart(productId));
+    .then(product => {
+      console.log(product.data);
+      dispatch(addToCart(product.data));
     })
     .catch(error => dispatch(addToCart({ error })));
 
@@ -71,9 +72,12 @@ export const getCartThunk = userId => dispatch =>
 Reducer
 */
 export default function cart(state = initialState, action = {}) {
+  let tempState;
   switch (action.type) {
     case ADD_ITEM:
-      return [...state, action.payload];
+      tempState = Object.assign({}, state);
+      tempState.products.push(action.product);
+      return tempState;
     case REMOVE_ITEM:
       return state.filter(thing => thing !== action.payload);
     case GET_CART:
