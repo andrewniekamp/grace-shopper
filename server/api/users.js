@@ -12,3 +12,11 @@ router.get('/', (req, res, next) => {
     .then(users => res.json(users))
     .catch(next)
 })
+
+router.get('/profile', (req, res, next) =>{
+  if(req.user){
+    res.render('profile', {title: 'Profile', user: req.user})
+  } else{
+    res.redirect('/login')
+  }
+})
