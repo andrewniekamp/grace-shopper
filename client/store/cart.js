@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 
 /*
 Action Types
@@ -6,6 +6,7 @@ Action Types
 const ADD_ITEM = "ADD_ITEM";
 const REMOVE_ITEM = "REMOVE_ITEM";
 const GET_CART = "GET_CART";
+const EMPTY_CART = 'EMPTY_CART'
 
 /*
 Initial State
@@ -68,6 +69,13 @@ export const getCartThunk = userId => dispatch =>
 //   })
 //   .catch(error => dispatch(getUser({ error })));
 
+export function emptyCart() {
+  return {
+    type: EMPTY_CART,
+    payload: 0
+  }
+}
+
 /*
 Reducer
 */
@@ -82,6 +90,8 @@ export default function cart(state = initialState, action = {}) {
       return state.filter(thing => thing !== action.payload);
     case GET_CART:
       return action.payload;
+    case EMPTY_CART:
+      return state.filter(thing => thing == action.payload)
     default:
       return state;
   }

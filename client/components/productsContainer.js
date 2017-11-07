@@ -5,12 +5,12 @@ import { NavLink } from "react-router-dom";
 
 /*COMPONENT*/
 export const ProductList = props => {
-  const { productList, handleAddToCart, handleRemoveFromCart, userId } = props;
+  const { productList, handleAddToCart, email, userId } = props;
 
   return (
     <div className="container">
       <div className="row">
-        <h1> Welcome </h1>
+        {email ? <h1> Welcome {email}</h1> : <h1>Welcome</h1>}
         {productList.map(product => {
           return (
             <div key={product.id} className="col-md-2 uniform">
@@ -48,14 +48,14 @@ export const ProductList = props => {
 const mapState = state => {
   return {
     productList: state.products,
-    userId: state.user.id
+    userId: state.user.id,
+    email: state.user.email
   };
 };
 
 const mapDispatch = function(dispatch) {
   return {
     handleAddToCart(userId, event) {
-      console.log("we here !");
       let productId = event.target.value;
       dispatch(addToCartThunk(userId, productId));
     },
@@ -66,5 +66,3 @@ const mapDispatch = function(dispatch) {
   };
 };
 export default connect(mapState, mapDispatch)(ProductList);
-
-/* PROP TYPES */

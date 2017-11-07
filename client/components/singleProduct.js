@@ -1,20 +1,30 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 export const singleProduct = (props) => {
   console.log(props)
   let inventory = props.productList
   let id = props.match.params.id
-  let singleItem = inventory.filter(item => item.id == id)[0]
-console.log("@#@#@!@#!@#!@",singleItem)
+  let singleItem = inventory.filter(item => item.id == id)
+  console.log("@#@#@!@#!@#!@", singleItem)
   return (
-    <div>
-    <h1> Hai from Jose</h1>
-    {console.log(singleItem)}
-    <h3> {singleItem.name}</h3>
-    <img src={singleItem.imageURL}/>
-    <p> {singleItem.description}</p>
-    <p> {singleItem.price / 100}</p>
+    <div className="container-fluid" >
+      {console.log(singleItem)}
+      <h2> {singleItem.length && singleItem[0].name}</h2>
+      <div className="uniform-single-product-view">
+          <img className="uniform-single-image" src={singleItem.length && singleItem[0].imageURL} />
+        <div className = "uniform-single-product-view-script">
+        <div>
+        <h3>Description</h3>
+          <p> {singleItem.length && singleItem[0].description}</p>
+          </div>
+          <div>
+          <h4>Price</h4>
+          <p> {singleItem.length && singleItem[0].price / 100}</p>
+          <button className="btn btn-success" value={singleItem.id}>Add to cart</button>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
