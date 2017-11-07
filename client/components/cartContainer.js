@@ -11,7 +11,7 @@ export const CartContainer = props => {
   let total = 0;
   return (
     <div className="container">
-      <h2>Hi from Jose</h2>
+      <h2>Order Summary</h2>
       <table className="table table-striped">
         <thead>
           <tr>
