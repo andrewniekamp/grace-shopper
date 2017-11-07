@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 
 
 /*
@@ -6,6 +6,7 @@ Action Types
 */
 const ADD_ITEM = 'ADD_ITEM'
 const REMOVE_ITEM = 'REMOVE_ITEM'
+const EMPTY_CART = 'EMPTY_CART'
 
 
 
@@ -19,28 +20,35 @@ const initialState = {
 /*
 Action Creator
 */
-export function addToCart(productId){
+export function addToCart(productId) {
   return {
     type: ADD_ITEM,
     payload: productId
   }
 }
 
-export function removeFromCart(productId){
+export function removeFromCart(productId) {
   return {
     type: REMOVE_ITEM,
     payload: productId
   }
 }
 
+export function emptyCart() {
+  return {
+    type: EMPTY_CART,
+    payload: 0
+  }
+}
 
-const handleCartAdd = function(state, payload) {
+
+const handleCartAdd = function (state, payload) {
   return {
     orderList: [...state.orderList, payload.productId]
   };
 };
 
-const handleCartRemove = function(state, payload) {
+const handleCartRemove = function (state, payload) {
   return {
     orderList: state.items.filter(id => id !== payload.productId)
   };
@@ -49,13 +57,15 @@ const handleCartRemove = function(state, payload) {
 /*
 Reducer
 */
-export default function cart(state = [], action = {}){
-  switch (action.type){
+export default function cart(state = [], action = {}) {
+  switch (action.type) {
     case ADD_ITEM:
-     return [...state, action.payload];
+      return [...state, action.payload];
     case REMOVE_ITEM:
     return [ ...state.slice(0,state.indexOf(action.productId),
       ...state.slice(state.indexOf(action.productId)+1))]
+    case EMPTY_CART:
+      return state.filter(thing => thing == action.payload)
     default:
       return state;
   }
