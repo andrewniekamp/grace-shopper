@@ -11,7 +11,8 @@ const GET_CART = "GET_CART";
 Initial State
 */
 const initialState = {
-  orderList: []
+  products: [],
+  status: 'Initial'
 };
 
 /*
@@ -52,7 +53,7 @@ export const getCartThunk = userId => dispatch =>
     .get(`/api/users/${userId}/cart/`)
     .then(theCart => {
       console.log(theCart.data)
-      // dispatch(getCart(theCart));
+      dispatch(getCart(theCart.data[0]));
     })
     .catch(error => dispatch(getCart({ error })));
 
@@ -69,7 +70,7 @@ export const getCartThunk = userId => dispatch =>
 /*
 Reducer
 */
-export default function cart(state = [], action = {}) {
+export default function cart(state = initialState, action = {}) {
   switch (action.type) {
     case ADD_ITEM:
       return [...state, action.payload];

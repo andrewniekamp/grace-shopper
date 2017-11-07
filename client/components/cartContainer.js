@@ -35,13 +35,13 @@ export const CartContainer = props => {
                     >
                       Remove from cart
                     </button>
-                    <button
+                    {/*<button
                       className="btn btn-success"
                       onClick={handleSubmitOrder} // not defined yet
                       value={bottle[0].id}
                     >
                       Remove from cart
-                    </button>
+                    </button>*/}
                   </td>
                 </tr>
               );

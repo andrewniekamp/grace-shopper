@@ -14,10 +14,10 @@ const Main = (props) => {
 
 
   const { children, handleClick, isLoggedIn, cart } = props
-  let deepLength = 0;
-  cart.length && cart.forEach(itemArr => {
-    deepLength += itemArr.length;
-  })
+  let deepLength = cart.products.length;
+  // cart.length && cart.forEach(itemArr => {
+  //   deepLength += itemArr.length;
+  // })
   return (<div>
     <h1>Booze Brothers</h1>
     <nav>
