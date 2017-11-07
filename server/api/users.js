@@ -26,16 +26,37 @@ router.get('/:id/cart', (req, res, next) => {
 });
 
 router.put('/:id/cart/submit', (req, res, next) => {
+  console.log("HELLO", req.body.discountCode);
   User.findById(req.params.id)
-    .then(user =>
-      Order.find({
-        where: { userId: user.id, isSubmitted: false },
-        include: [{ model: Product }]
+  .then(user =>
+    Order.find({
+      where: { userId: user.id, isSubmitted: false },
+      include: [{ model: Product }]
+    })
+    .then(order => {
+      // Set order total here? map through products?
+      let orderTotal = 0;
+      order.products.map( product => {
+        console.log(orderTotal);
+        orderTotal += product.price;
       })
-    )
-    .then(order => order.update({ isSubmitted: true, status: 'submitted' }))
-    .then(order => res.json(order))
+      let discountCode = 'coreysbirthday';
+      let discountCodeApostrophe = 'corey\'sbirthday';
+      let submittedCode = req.body.discountCode;
+      if (!order.codeApplied && submittedCode === discountCode ||
+          submittedCode === discountCodeApostrophe) {
+            orderTotal = Math.round(orderTotal / 2);
+          }
+      return order.update({
+        isSubmitted: true,
+        status: 'Submitted',
+        codeApplied: true,
+        orderTotal
+      })
+    })
+    .then( () => res.json('OK'))
     .catch(next)
+  )
 });
 
 router.put('/:id/cart/add', (req, res, next) => {
