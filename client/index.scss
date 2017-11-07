@@ -47,11 +47,11 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: all, 2s, ease-in;
     border-style: solid;
     border-width: 1px;
     border-radius: 2.5%;
     margin: 1em;
+    transition: all, 1.5s, ease-in;    
   }
 
   .uniform:hover{
@@ -63,5 +63,40 @@ body {
     height: 15em;
     padding:0.25em;
   }
+
+  .uniform-single-product-view{
+    height: 40em;
+    display: flex;
+    justify-content: space-between;
+    align-content: space-around;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2.5%;
+    margin: 1em;
+    background-color: rgba(255, 251, 178, 0.51);
+  }
+
+  .uniform-single-product-view-script{
+    height: 28em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-width: 1px;
+    margin: 1em;
+    text-align: center;
+    border-radius: 2.5%;    
+    padding:0.20em;
+    align-self: center;
+    font-size: auto;
+  }
+
+  .uniform-single-image{
+    width:100%;
+    height: auto;
+    padding: 0.25em;
+    margin:0.3em;  
+  }
+
+ 
   
 }
