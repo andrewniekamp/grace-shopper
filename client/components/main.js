@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, NavLink } from 'react-router-dom'
-import store, { logout, products } from "../store";
+import store, { logout, getCartThunk, emptyCart } from '../store';
 
 /**
  * COMPONENT
@@ -11,15 +11,16 @@ import store, { logout, products } from "../store";
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-
-
-  const { children, handleClick, isLoggedIn, cart } = props
   let deepLength = 0;
-  cart.forEach(itemArr => {
-    deepLength += itemArr.length;
-  })
-  return (
-  <div>
+
+
+  const { children, handleClick, isLoggedIn, cart, userId } = props
+  cart && cart.products ? deepLength = cart.products.length : console.log('no length');
+  // cart.length && cart.forEach(itemArr => {
+    //   deepLength += itemArr.length;
+    // })
+  cart && userId && cart.status === 'Initial' ? store.dispatch(getCartThunk(userId)) : console.log('nice try!', cart)
+  return (<div>
     <h1>Booze Brothers</h1>
     <nav>
       {isLoggedIn ? <div className = "Main-Nav">
@@ -59,8 +60,9 @@ const Main = (props) => {
  */
 const mapState = (state) => {
   return {
-    isLoggedIn: state.user.id,
-    cart: state.cart
+    isLoggedIn: !!state.user.id,
+    cart: state.cart,
+    userId: state.user.id
   }
 }
 
@@ -68,6 +70,7 @@ const mapDispatch = (dispatch) => {
   return {
     handleClick() {
       dispatch(logout())
+      dispatch(emptyCart())
     }
   }
 }
