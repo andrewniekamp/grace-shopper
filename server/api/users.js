@@ -10,8 +10,17 @@ router.get('/', (req, res, next) => {
     attributes: ['id', 'email']
   })
     .then(users => res.json(users))
-    .catch(next);
-});
+    .catch(next)
+})
+
+router.get('/profile', (req, res, next) =>{
+  if(req.user){
+    res.render('profile', {title: 'Profile', user: req.user})
+  } else{
+    res.redirect('/login')
+  }
+})
+
 
 router.get('/:id/cart', (req, res, next) => {
   User.findById(req.params.id)
