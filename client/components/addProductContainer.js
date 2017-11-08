@@ -41,20 +41,6 @@ export const AddProduct = (props) => {
                     <input type="text" name="quantity" onChange={handleQuantity}/>
                 </div>
             </label>
-            <label>
-            Add Product Category:
-            </label>
-                <div>
-                    <input type="submit" value="Submit" />
-                    <select name="category">
-                        <option value="Scotch">Scotch</option>
-                        <option value="Rye">Rye</option>
-                        <option selected value="Bourbon">Bourbon</option>
-                        <option value="Irish Whiskey">Irish Whiskey</option>
-                        <option value="Japanese Whiskey">Japanese Whiskey</option>
-                        <option value="Accessories">Accessories</option>
-                    </select>
-                </div>
         </form>
     )
   }
