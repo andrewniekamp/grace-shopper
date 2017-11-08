@@ -14,6 +14,7 @@ const Main = (props) => {
   let deepLength = 0;
   let foo;
 
+
   const { children, handleClick, isLoggedIn, cart, userId } = props
   cart && cart.products ? deepLength = cart.products.length : foo = 'bar';
   // cart.length && cart.forEach(itemArr => {
@@ -26,21 +27,22 @@ const Main = (props) => {
       {isLoggedIn ? <div className = "Main-Nav">
         {/* The navbar will show these links after you log in */}
             <div >
-            <NavLink className = "Main-Nav-a" to="/home">Home</NavLink>
-            <a className = "Main-Nav-a" href="#" onClick={handleClick}>
-              Logout
-                </a>
-            <NavLink className = "Main-Nav-a" to="/products">Products</NavLink>
+              <NavLink className = "Main-Nav-a" to="/home">Home</NavLink>
+              <a className = "Main-Nav-a" href="#" onClick={handleClick}>
+                Logout
+                  </a>
+              <NavLink className = "Main-Nav-a" to="/products">Products</NavLink>
             </div>
             <div>
-            <NavLink className = "Main-Nav-a" to="/cart"> {deepLength} <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" /></NavLink>
+              <NavLink className = "Main-Nav-a" to="/cart"> {deepLength} <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" /></NavLink>
             </div>
-      </div> : <div className = "Main-Nav">
+            </div> : <div className = "Main-Nav">
           {/* The navbar will show these links before you log in */}
           <div >
           <NavLink className = "Main-Nav-a" to="/login">Login</NavLink>
           <NavLink className = "Main-Nav-a" to="/signup">Sign Up</NavLink>
           <NavLink className = "Main-Nav-a" to="/products">Products</NavLink>
+          <NavLink className = "Main-Nav-a" to="/addProduct"> Add Products </NavLink>
           </div>
           <div>
           <NavLink className = "Main-Nav-a" to="/cart"> {deepLength} <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" /></NavLink>
