@@ -32,6 +32,7 @@ const Main = (props) => {
                 Logout
                   </a>
               <NavLink className = "Main-Nav-a" to="/products">Products</NavLink>
+              <NavLink className = "Main-Nav-a" to="/addProduct"> Add Products </NavLink>
             </div>
             <div>
               <NavLink className = "Main-Nav-a" to="/cart"> {deepLength} <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" /></NavLink>
@@ -42,7 +43,6 @@ const Main = (props) => {
           <NavLink className = "Main-Nav-a" to="/login">Login</NavLink>
           <NavLink className = "Main-Nav-a" to="/signup">Sign Up</NavLink>
           <NavLink className = "Main-Nav-a" to="/products">Products</NavLink>
-          <NavLink className = "Main-Nav-a" to="/addProduct"> Add Products </NavLink>
           </div>
           <div>
           <NavLink className = "Main-Nav-a" to="/cart"> {deepLength} <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" /></NavLink>
