@@ -1,7 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import { addToCartThunk } from '../store'
 
 export const singleProduct = props => {
+  let { handleAddToCart, userId } = props;
   let inventory = props.productList;
   let id = props.match.params.id;
   let singleItem = inventory.filter(item => item.id == id);
@@ -26,9 +28,15 @@ export const singleProduct = props => {
           <div>
             <h4>Price</h4>
             <p> {singleItem.length && singleItem[0].price / 100}</p>
-            <button className="btn btn-success" value={singleItem.id}>
-              Add to cart
-            </button>
+            { singleItem.length &&
+              <button
+                className="btn btn-success"
+                value={singleItem[0].id}
+                onClick={event => handleAddToCart(userId, event)}
+              >
+                Add to cart
+              </button>
+            }
           </div>
         </div>
       </div>
@@ -90,7 +98,17 @@ const mapState = state => {
   return {
     productList: state.products,
     allReviews: state.reviews,
+    userId: state.user.id
   };
 };
 
-export default connect(mapState)(singleProduct);
+const mapDispatch = function(dispatch) {
+  return {
+    handleAddToCart(userId, event) {
+      let productId = Number(event.target.value);
+      dispatch(addToCartThunk(userId, productId));
+    }
+  };
+};
+
+export default connect(mapState, mapDispatch)(singleProduct);
