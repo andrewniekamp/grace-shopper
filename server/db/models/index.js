@@ -15,6 +15,7 @@ Order.belongsTo(User);
 Review.belongsTo(User);
 Review.belongsTo(Product);
 
+User.hasMany(Review);
 Product.hasMany(Review);
 Product.belongsTo(Category);
 Category.hasMany(Product);

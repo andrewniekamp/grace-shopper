@@ -1,7 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
-export const Reviews = props => {
+export const reviews = props => {
   console.log('props from reviews', props)
   return (
     <div className="container">

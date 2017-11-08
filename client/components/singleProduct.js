@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import Reviews from "./reviews";
 
 export const singleProduct = props => {
+  console.log('users on props:', props)
   let inventory = props.productList;
   let id = props.match.params.id;
   let singleItem = inventory.filter(item => item.id == id);
@@ -37,21 +37,16 @@ export const singleProduct = props => {
 
       <div className="container">
         <div className="row">
-
-        {productReviews &&
+          {productReviews &&
             productReviews.map(review => {
               return (
                 <div className="col-md-12" key={review.id}>
                   <div className="col-md-2">
-                    <img
-                      src="https://memegenerator.net/img/images/600x600/2154021/not-bad-obama.jpg"
-                      className="img-rounded"
-                      height="50px"
-                    />
-                    <h5>Dis be author name</h5>
+                    <h5>{review.user.email}</h5>
                     <p>
+                      Added date:
+                      <br />
                       {review.createdAt.slice(0, 10)}
-                      <br /> added (number) days ago
                     </p>
                   </div>
                   <div className="col-md-10">
@@ -63,23 +58,31 @@ export const singleProduct = props => {
             })}
 
           <div className="col-md-2">
-            {
-              productReviews &&
+            {productReviews &&
               productReviews.map(review => {
-                let rating = review.rating
-                let starArr = []
-                for (let i = rating; i > 0; i--){
-                  starArr.push(<button type="button" key={review.id} className="btn btn-warning btn-xs">
-                      <span className="glyphicon glyphicon-star" />
-                    </button>
-                  );
+                let rating = review.rating;
+                let starArr = [];
+                for (let i = 0; i < 5; i++) {
+                  if (rating <= i) {
+                    starArr.push(
+                        <button
+                        type="button"
+                        key={i}
+                        className="btn btn-default btn-grey btn-xs"
+                      >
+                        <span className="glyphicon glyphicon-star" />
+                      </button>
+                    )
+                  } else {
+                    starArr.push(<button type="button" key={i} className="btn btn-warning btn-xs">
+                        <span className="glyphicon glyphicon-star" />
+                      </button>);
+                  }
                 }
-                return starArr
-              })
-            }
+                return starArr;
+              })}
           </div>
-
-            </div>
+        </div>
       </div>
     </div>
   );
@@ -88,7 +91,7 @@ export const singleProduct = props => {
 const mapState = state => {
   return {
     productList: state.products,
-    allReviews: state.reviews
+    allReviews: state.reviews,
   };
 };
 

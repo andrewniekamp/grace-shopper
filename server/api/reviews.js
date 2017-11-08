@@ -1,15 +1,15 @@
 const router = require('express').Router();
-const { Review } = require('../db/models');
+const { Review, User } = require('../db/models');
 module.exports = router;
 
 router.get('/', (req, res, next) => {
-  Review.findAll()
+  Review.findAll({include:[{model:User, attributes: ['email'] }]})
     .then(reviews => res.send(reviews))
     .catch(next);
 });
 
 router.get('/:id', (req, res, next) => {
-  Review.findById(req.params.id)
+  Review.findById(req.params.id, {include:[ {model: User, attributes: ['email']} ] })
     .then(review => res.send(review))
     .catch(next);
 });
