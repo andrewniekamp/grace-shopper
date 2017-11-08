@@ -88,6 +88,7 @@ export default function cart(state = initialState, action = {}) {
   switch (action.type) {
     case ADD_ITEM:
       tempState = Object.assign({}, state);
+      if (!tempState.products) tempState.products = [];
       tempState.products.push(action.product);
       return tempState;
     case REMOVE_ITEM:
