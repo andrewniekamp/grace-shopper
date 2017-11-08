@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Order, Product } = require('../db/models');
+const { User, Order, Product, productOrders } = require('../db/models');
 module.exports = router;
 
 router.get('/', (req, res, next) => {
@@ -37,7 +37,8 @@ router.put('/:id/cart/submit', (req, res, next) => {
 });
 
 router.put('/:id/cart/add', (req, res, next) => {
-  console.log('here we are in routes')
+  console.log('here we are in routes', req.body)
+  // let quantity = req.body.quantity
   let currentOrder = null;
   let addedProduct = null;
   User.findById(req.params.id)
@@ -51,8 +52,23 @@ router.put('/:id/cart/add', (req, res, next) => {
       currentOrder = order;
       return Product.findById(Number(req.body.productId)).then(product => {
         addedProduct = product;
-        currentOrder.addProduct(product);
+        currentOrder.addProduct(product)
       });
     })
-    .then( () => res.json(addedProduct));
+    .then(stuff => {
+      productOrders.findAll({
+        where:
+        {
+          orderId: currentOrder.id,
+          productId: Number(req.body.productId)
+        }
+      }).then(productOrder => {
+        console.log("THIS IS THE THING YOU WANT ",JSON.stringify(productOrder[0].quantity + 1))
+    return productOrder[0].update({quantity: productOrder[0].quantity + 1})
+  })
+      })
+    .then(() => res.json(addedProduct))
+    .catch(next);
 });
+
+//how to access quantity? won't work. have to check this. 
