@@ -4,7 +4,15 @@ import { removeFromCartThunk, submitCartThunk } from "../store";
 
 /*COMPONENT*/
 export const CartContainer = props => {
-  const { cart, productList, handleSubmitCart,  handleRemoveFromCart, userId } = props;
+  const {
+    cart,
+    productList,
+    handleSubmitCart,
+    handleRemoveFromCart,
+    userId,
+    handleDiscount
+  } = props;
+  console.log('cart items', props.cart)
   let bottles;
   if (cart && cart.products) {
     bottles = cart.products.map(cartItem =>
@@ -12,6 +20,8 @@ export const CartContainer = props => {
     );
   }
   let total = 0;
+  let discountCode = 'coreysBirthday';
+  let discountApply = false;
   return (
     <div className="container">
       <h2>Order Summary</h2>
@@ -42,19 +52,22 @@ export const CartContainer = props => {
                 </tr>
               );
             })}
-          </tbody>
-        </table>
+        </tbody>
+      </table>
       <div>Total:$ {total / 100} </div>
       <form onSubmit={event => handleSubmitCart(userId, event)}>
         <div>
           <label htmlFor="discount">Discount Code</label>
           <input id="discount" name="discount" />
+          <button
+            className="btn btn-info"
+            onClick={console.log(event.target.value)}
+          >
+            Apply discount
+          </button>
         </div>
         <div>
-          <button
-            className="btn btn-success"
-            type="submit"
-          >
+          <button className="btn btn-success" type="submit">
             Submit Order
           </button>
         </div>
@@ -82,6 +95,10 @@ const mapDispatch = function(dispatch) {
       event.preventDefault();
       let discountCode = event.target.discount.value;
       dispatch(submitCartThunk(userId, discountCode));
+    },
+    handleDiscount(discountCode, event){
+      event.preventDefault();
+      console.log()
     }
   };
 };
