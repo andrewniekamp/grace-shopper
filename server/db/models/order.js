@@ -15,6 +15,17 @@ const Order = db.define('order', {
   orderDate: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
+  },
+  codeApplied: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  orderTotal: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+    validate: {
+      min: 0
+    }
   }
 })
 

@@ -12,6 +12,10 @@ export const singleProduct = props => {
     );
   let productReviews = getReviewsForProduct(id);
 
+export const singleProduct = (props) => {
+  let inventory = props.productList
+  let id = props.match.params.id
+  let singleItem = inventory.filter(item => item.id == id)
   return (
     <div className="container-fluid">
       <h2> {singleItem.length && singleItem[0].name}</h2>
