@@ -1,10 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { removeFromCartThunk, submitCartThunk } from "../store";
+import store, { removeFromCartThunk, submitCartThunk, ordersThunk } from "../store";
 
 /*COMPONENT*/
 export const CartContainer = props => {
-  const { cart, productList, handleSubmitCart,  handleRemoveFromCart, userId } = props;
+  const { cart, productList, handleSubmitCart,  handleRemoveFromCart, userId, orderList } = props;
+  userId && !orderList.length && store.dispatch(ordersThunk(userId))
+  orderList.length && console.log(orderList);
   let bottles;
   if (cart && cart.products) {
     bottles = cart.products.map(cartItem =>
@@ -59,6 +61,19 @@ export const CartContainer = props => {
           </button>
         </div>
       </form>
+      <div>
+        {
+          orderList.length && orderList.reverse().map( (order, index) => {
+            return (
+              order.isSubmitted &&
+              <div key={index}>
+              <p>Order Date: {order.updatedAt}, Coupon Applied: {order.codeApplied ? "YES!" : "No"}, Total: {order.orderTotal / 100}</p>
+
+              </div>
+            )
+          })
+        }
+      </div>
     </div>
   );
 };
@@ -68,7 +83,8 @@ const mapState = state => {
   return {
     cart: state.cart,
     productList: state.products,
-    userId: state.user.id
+    userId: state.user.id,
+    orderList: state.orderList
   };
 };
 
@@ -76,7 +92,7 @@ const mapDispatch = function(dispatch) {
   return {
     handleRemoveFromCart(userId, event) {
       let productId = Number(event.target.value);
-      dispatch(removeFromCartThunk(userId, productId));
+      dispatch(removeFromCartThunk(userId, productId))
     },
     handleSubmitCart(userId, event) {
       event.preventDefault();

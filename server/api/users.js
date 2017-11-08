@@ -35,7 +35,6 @@ router.get('/:id/cart', (req, res, next) => {
 });
 
 router.put('/:id/cart/submit', (req, res, next) => {
-  console.log("HELLO", req.body.discountCode);
   User.findById(req.params.id)
   .then(user =>
     Order.find({
@@ -45,21 +44,22 @@ router.put('/:id/cart/submit', (req, res, next) => {
     .then(order => {
       // Set order total here? map through products?
       let orderTotal = 0;
+      let discountApplied = false;
       order.products.map( product => {
-        console.log(orderTotal);
         orderTotal += product.price;
       })
-      let discountCode = 'coreysbirthday';
-      let discountCodeApostrophe = 'corey\'sbirthday';
+      let discountCode = 'coreysbday';
+      let discountCodeApostrophe = 'corey\'sbday';
       let submittedCode = req.body.discountCode;
       if (!order.codeApplied && submittedCode === discountCode ||
           submittedCode === discountCodeApostrophe) {
             orderTotal = Math.round(orderTotal / 2);
+            discountApplied = true;
           }
       return order.update({
         isSubmitted: true,
         status: 'Submitted',
-        codeApplied: true,
+        codeApplied: discountApplied,
         orderTotal
       })
     })
@@ -123,4 +123,16 @@ router.put('/:id/cart/destroy', (req, res, next) => {
   })
 });
 
-//how to access quantity? won't work. have to check this. 
+router.get('/:id/order/', (req, res, next) => {
+  Order.findAll({
+    where: {
+      userId: req.params.id
+    }
+  })
+  .then(orders => {
+    return res.json(orders)
+  })
+  .catch(next)
+})
+
+//how to access quantity? won't work. have to check this.
