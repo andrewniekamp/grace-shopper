@@ -12,34 +12,37 @@ import store, { logout, getCartThunk, emptyCart } from '../store';
  */
 const Main = (props) => {
   let deepLength = 0;
+  let foo;
+
 
   const { children, handleClick, isLoggedIn, cart, userId } = props
-  cart && cart.products ? deepLength = cart.products.length : console.log('no length');
+  cart && cart.products ? deepLength = cart.products.length : foo = 'bar';
   // cart.length && cart.forEach(itemArr => {
     //   deepLength += itemArr.length;
     // })
-  cart && userId && cart.status === 'Initial' ? store.dispatch(getCartThunk(userId)) : console.log('nice try!', cart)
+  cart && userId && cart.status === 'Initial' ? store.dispatch(getCartThunk(userId)) : foo = 'bar';
   return (<div>
     <h1>Booze Brothers</h1>
     <nav>
       {isLoggedIn ? <div className = "Main-Nav">
         {/* The navbar will show these links after you log in */}
             <div >
-            <NavLink className = "Main-Nav-a" to="/home">Home</NavLink>
-            <a className = "Main-Nav-a" href="#" onClick={handleClick}>
-              Logout
-                </a>
-            <NavLink className = "Main-Nav-a" to="/products">Products</NavLink>
+              <NavLink className = "Main-Nav-a" to="/home">Home</NavLink>
+              <a className = "Main-Nav-a" href="#" onClick={handleClick}>
+                Logout
+                  </a>
+              <NavLink className = "Main-Nav-a" to="/products">Products</NavLink>
             </div>
             <div>
-            <NavLink className = "Main-Nav-a" to="/cart"> {deepLength} <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" /></NavLink>
+              <NavLink className = "Main-Nav-a" to="/cart"> {deepLength} <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" /></NavLink>
             </div>
-      </div> : <div className = "Main-Nav">
+            </div> : <div className = "Main-Nav">
           {/* The navbar will show these links before you log in */}
           <div >
           <NavLink className = "Main-Nav-a" to="/login">Login</NavLink>
           <NavLink className = "Main-Nav-a" to="/signup">Sign Up</NavLink>
           <NavLink className = "Main-Nav-a" to="/products">Products</NavLink>
+          <NavLink className = "Main-Nav-a" to="/addProduct"> Add Products </NavLink>
           </div>
           <div>
           <NavLink className = "Main-Nav-a" to="/cart"> {deepLength} <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" /></NavLink>

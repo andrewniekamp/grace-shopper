@@ -10,8 +10,17 @@ router.get('/', (req, res, next) => {
     attributes: ['id', 'email']
   })
     .then(users => res.json(users))
-    .catch(next);
-});
+    .catch(next)
+})
+
+router.get('/profile', (req, res, next) =>{
+  if(req.user){
+    res.render('profile', {title: 'Profile', user: req.user})
+  } else{
+    res.redirect('/login')
+  }
+})
+
 
 router.get('/:id/cart', (req, res, next) => {
   User.findById(req.params.id)
@@ -21,24 +30,45 @@ router.get('/:id/cart', (req, res, next) => {
         include: [{ model: Product }]
       })
     )
-    .then(order => res.json(order));
+    .then(order => res.json(order))
+    .catch(next)
 });
 
 router.put('/:id/cart/submit', (req, res, next) => {
+  console.log("HELLO", req.body.discountCode);
   User.findById(req.params.id)
-    .then(user =>
-      Order.find({
-        where: { userId: user.id, isSubmitted: false },
-        include: [{ model: Product }]
+  .then(user =>
+    Order.find({
+      where: { userId: user.id, isSubmitted: false },
+      include: [{ model: Product }]
+    })
+    .then(order => {
+      // Set order total here? map through products?
+      let orderTotal = 0;
+      order.products.map( product => {
+        console.log(orderTotal);
+        orderTotal += product.price;
       })
-    )
-    .then(order => order.update({ isSubmitted: true, status: 'submitted' }))
-    .then(order => res.json(order));
+      let discountCode = 'coreysbirthday';
+      let discountCodeApostrophe = 'corey\'sbirthday';
+      let submittedCode = req.body.discountCode;
+      if (!order.codeApplied && submittedCode === discountCode ||
+          submittedCode === discountCodeApostrophe) {
+            orderTotal = Math.round(orderTotal / 2);
+          }
+      return order.update({
+        isSubmitted: true,
+        status: 'Submitted',
+        codeApplied: true,
+        orderTotal
+      })
+    })
+    .then( () => res.json('OK'))
+    .catch(next)
+  )
 });
 
 router.put('/:id/cart/add', (req, res, next) => {
-  console.log('here we are in routes', req.body)
-  // let quantity = req.body.quantity
   let currentOrder = null;
   let addedProduct = null;
   User.findById(req.params.id)
@@ -67,8 +97,30 @@ router.put('/:id/cart/add', (req, res, next) => {
     return productOrder[0].update({quantity: productOrder[0].quantity + 1})
   })
       })
-    .then(() => res.json(addedProduct))
-    .catch(next);
+    .then( () => res.json(addedProduct))
+    .catch(next)
+});
+
+router.put('/:id/cart/destroy', (req, res, next) => {
+  let currentOrder;
+  let productToRemove;
+  User.findById(req.params.id)
+  .then(user => {
+    return Order.find({
+      where: { userId: user.id, isSubmitted: false },
+      include: [{ model: Product }]
+    })
+  })
+  .then(order => {
+    currentOrder = order;
+    return Product.findById(req.body.productId)
+    .then( product => {
+      productToRemove = product;
+      return currentOrder.removeProduct(productToRemove)
+      .then( () => res.json(productToRemove))
+      .catch(next)
+    })
+  })
 });
 
 //how to access quantity? won't work. have to check this. 

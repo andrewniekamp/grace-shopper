@@ -24,7 +24,7 @@ export const ProductList = props => {
                 </NavLink>
                 <div className="caption">
                   <h3>{product.name}</h3>
-                  <p> ... </p>
+                  <p>$ {product.price/100} </p>
                   <p>
                     <button
                       className="btn btn-success"
