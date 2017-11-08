@@ -70,8 +70,10 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     handleClick() {
-      dispatch(logout())
-      dispatch(emptyCart())
+      return dispatch(logout())
+      .then( () => {
+        dispatch(emptyCart())
+      })
     }
   }
 }
