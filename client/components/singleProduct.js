@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 
 export const singleProduct = props => {
-  console.log('users on props:', props)
   let inventory = props.productList;
   let id = props.match.params.id;
   let singleItem = inventory.filter(item => item.id == id);
@@ -11,11 +10,6 @@ export const singleProduct = props => {
       review => review.productId.toString() === productId
     );
   let productReviews = getReviewsForProduct(id);
-
-export const singleProduct = (props) => {
-  let inventory = props.productList
-  let id = props.match.params.id
-  let singleItem = inventory.filter(item => item.id == id)
   return (
     <div className="container-fluid">
       <h2> {singleItem.length && singleItem[0].name}</h2>
